@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        FloatingActionButton fab2 = findViewById(R.id.fab_2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RetrofitActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

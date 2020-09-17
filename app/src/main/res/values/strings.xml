@@ -4,4 +4,5 @@
     <string name="button_save">保存</string>
     <string name="empty_not_saved">数据不能为空</string>
     <string name="hint_word">请填入要保存的信息</string>
+    <string name="go_test_retrofit">去测试Retrofit</string>
 </resources>
