@@ -5,6 +5,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
+import static com.example.jetpackstudy.repository.net.Urls.BASE_URL;
+
 /**
  * <p>@author : tangyanghai</p>
  * <p>@time : 2020/9/17</p>
@@ -14,7 +16,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 public class Net {
     // 第2部分：在创建Retrofit实例时通过.baseUrl()设置
     private static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Urls.BASE_URL) //设置网络请求的Url地址
+            .baseUrl(BASE_URL) //设置网络请求的Url地址
             .addConverterFactory(FastJsonConverterFactory.create()) //设置数据解析器
             .addCallAdapterFactory(new LiveDataCallAdapterFactory())//支持LiveData
             .build();
@@ -23,8 +25,23 @@ public class Net {
         return retrofit.create(WanAndroidService.class).getChapters();
     }
 
-    public Call<ApiResponse<String>> getChaptersNormal() {
-        return retrofit.create(WanAndroidService.class).getChaptersNormal();
+    public static <T> T getService(Class<T> clz, String baseUrl) {
+        Retrofit rf = getRetrofitByBaseUrl(baseUrl);
+        return rf.create(clz);
     }
 
+    public static <T> T getService(Class<T> clz) {
+        return getService(clz, BASE_URL);
+    }
+
+    private static Retrofit getRetrofitByBaseUrl(String baseUrl) {
+        if (baseUrl == null) {
+            baseUrl = BASE_URL;
+        }
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl) //设置网络请求的Url地址
+                .addConverterFactory(FastJsonConverterFactory.create()) //设置数据解析器
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())//支持LiveData
+                .build();
+    }
 }

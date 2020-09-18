@@ -1,7 +1,7 @@
 package com.example.jetpackstudy.vm;
 
+import com.example.jetpackstudy.repository.RetrofitRepository;
 import com.example.jetpackstudy.repository.net.ApiResponse;
-import com.example.jetpackstudy.repository.net.Net;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,8 +14,14 @@ import androidx.lifecycle.ViewModel;
  */
 public class RetrofitViewModel extends ViewModel {
 
-    public LiveData<ApiResponse<String>> getResponse(){
-        return new Net().getChapters();
+    RetrofitRepository repository;
+
+    public RetrofitViewModel() {
+        repository = new RetrofitRepository();
+    }
+
+    public LiveData<ApiResponse<String>> getResponse() {
+        return repository.loadData();
     }
 
 }
