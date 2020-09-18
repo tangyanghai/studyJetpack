@@ -2,7 +2,7 @@ package com.example.jetpackstudy.vm;
 
 import android.app.Application;
 
-import com.example.jetpackstudy.repository.Word;
+import com.example.jetpackstudy.repository.bean.Word;
 import com.example.jetpackstudy.repository.WordRepository;
 
 import java.util.List;

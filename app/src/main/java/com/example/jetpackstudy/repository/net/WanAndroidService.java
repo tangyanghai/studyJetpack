@@ -1,7 +1,10 @@
 package com.example.jetpackstudy.repository.net;
 
+import com.example.jetpackstudy.repository.bean.WanAndroidBean;
+
+import java.util.List;
+
 import androidx.lifecycle.LiveData;
-import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -12,9 +15,5 @@ import retrofit2.http.GET;
  */
 public interface WanAndroidService {
     @GET("wxarticle/chapters/json")
-    LiveData<ApiResponse<String>> getChapters();
-
-    @GET("wxarticle/chapters/json")
-    Call<ApiResponse<String>> getChaptersNormal();
-
+    LiveData<ApiResponse<List<WanAndroidBean>>> getChapters();
 }

@@ -1,6 +1,6 @@
 package com.example.jetpackstudy.repository.dao;
 
-import com.example.jetpackstudy.repository.Word;
+import com.example.jetpackstudy.repository.bean.Word;
 
 import java.util.List;
 

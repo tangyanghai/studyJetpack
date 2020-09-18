@@ -1,5 +1,9 @@
 package com.example.jetpackstudy.repository.net;
 
+import com.example.jetpackstudy.repository.bean.WanAndroidBean;
+
+import java.util.List;
+
 import androidx.lifecycle.LiveData;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,10 +24,6 @@ public class Net {
             .addConverterFactory(FastJsonConverterFactory.create()) //设置数据解析器
             .addCallAdapterFactory(new LiveDataCallAdapterFactory())//支持LiveData
             .build();
-
-    public LiveData<ApiResponse<String>> getChapters() {
-        return retrofit.create(WanAndroidService.class).getChapters();
-    }
 
     public static <T> T getService(Class<T> clz, String baseUrl) {
         Retrofit rf = getRetrofitByBaseUrl(baseUrl);

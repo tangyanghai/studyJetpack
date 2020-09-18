@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.jetpackstudy.repository.Word;
+import com.example.jetpackstudy.repository.bean.Word;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -58,7 +58,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             synchronized (WordRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            WordRoomDatabase.class, storagePath+"word_database")
+                            WordRoomDatabase.class, /*storagePath+*/"word_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }

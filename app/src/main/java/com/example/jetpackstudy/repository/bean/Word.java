@@ -1,4 +1,4 @@
-package com.example.jetpackstudy.repository;
+package com.example.jetpackstudy.repository.bean;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

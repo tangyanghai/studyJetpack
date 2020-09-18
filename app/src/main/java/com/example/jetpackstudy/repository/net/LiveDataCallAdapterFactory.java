@@ -28,7 +28,6 @@ public class LiveDataCallAdapterFactory extends CallAdapter.Factory {
         if (!(observableType instanceof ParameterizedType)) {
             throw new IllegalArgumentException("resource must be parameterized");
         }
-        Type bodyType = getParameterUpperBound(0, (ParameterizedType) observableType);
-        return new LiveDataCallAdapter<>(bodyType);
+        return new LiveDataCallAdapter<>(observableType);
     }
 }

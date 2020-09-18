@@ -15,7 +15,7 @@ import retrofit2.Response;
  * <p>@for : </p>
  * <p></p>
  */
-public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<ApiResponse<R>>> {
+public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<R>> {
 
     private Type responseType;
 
@@ -29,8 +29,8 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<ApiRespon
     }
 
     @Override
-    public LiveData<ApiResponse<R>> adapt(Call<R> call) {
-        return new LiveData<ApiResponse<R>>() {
+    public LiveData<R> adapt(Call<R> call) {
+        return new LiveData<R>() {
             AtomicBoolean started = new AtomicBoolean(false);
 
             @Override
@@ -40,12 +40,12 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<ApiRespon
                     call.enqueue(new Callback<R>() {
                         @Override
                         public void onResponse(Call<R> call1, Response<R> response) {
-                            postValue(new ApiResponse<R>(response));
+                            postValue(response.body());
                         }
 
                         @Override
                         public void onFailure(Call<R> call1, Throwable t) {
-                            postValue(new ApiResponse(t));
+                            postValue((R) new ApiResponse(null, -1, t.getMessage() == null ? "" : t.getMessage()));
                         }
                     });
                 }

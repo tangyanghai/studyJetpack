@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:hint="还未加载数据"
-        android:id="@+id/tv_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/rv"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
 
     <Button
         android:id="@+id/bt_load_data"

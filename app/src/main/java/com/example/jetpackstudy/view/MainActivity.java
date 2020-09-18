@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.jetpackstudy.R;
 import com.example.jetpackstudy.vm.WordViewModel;
-import com.example.jetpackstudy.repository.Word;
+import com.example.jetpackstudy.repository.bean.Word;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

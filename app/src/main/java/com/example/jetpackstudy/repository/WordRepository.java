@@ -2,6 +2,7 @@ package com.example.jetpackstudy.repository;
 
 import android.app.Application;
 
+import com.example.jetpackstudy.repository.bean.Word;
 import com.example.jetpackstudy.repository.dao.WordDao;
 import com.example.jetpackstudy.repository.dao.WordRoomDatabase;
 
