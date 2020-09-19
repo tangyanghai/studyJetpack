@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jetpackstudy.R;
-import com.example.jetpackstudy.repository.RetrofitRepository;
 import com.example.jetpackstudy.repository.bean.WanAndroidBean;
 import com.example.jetpackstudy.repository.net.ApiResponse;
 import com.example.jetpackstudy.vm.RetrofitViewModel;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,8 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * <p>@for : </p>
  * <p></p>
  */
-public class RetrofitActivity extends AppCompatActivity {
+public class RetrofitActivity extends BaseActivity {
     RetrofitViewModel model;
+    private Adapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,11 +38,19 @@ public class RetrofitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_retrofit);
         RecyclerView rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        Adapter adapter = new Adapter(this);
+        adapter = new Adapter(this);
         rv.setAdapter(adapter);
+        findViewById(R.id.bt_load_data).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.loadData(RetrofitActivity.this);
+            }
+        });
+    }
 
-        model = new ViewModelProvider(this).get(RetrofitViewModel.class);
-        model.loadData(RetrofitActivity.this);
+    @Override
+    protected void initViewModels() {
+        model = createViewModel(RetrofitViewModel.class);
         model.getResponse().observe(RetrofitActivity.this, new Observer<ApiResponse<List<WanAndroidBean>>>() {
             @Override
             public void onChanged(ApiResponse<List<WanAndroidBean>> listApiResponse) {
@@ -57,10 +64,13 @@ public class RetrofitActivity extends AppCompatActivity {
                 adapter.setList(listApiResponse.data);
             }
         });
-        findViewById(R.id.bt_load_data).setOnClickListener(new View.OnClickListener() {
+        model.getFirstLoad().observe(this, new Observer<Boolean>() {
             @Override
-            public void onClick(View v) {
-                model.loadData(RetrofitActivity.this);
+            public void onChanged(Boolean first) {
+                if (first) {
+                    model.setFirstLoading(false);
+                    model.loadData(RetrofitActivity.this);
+                }
             }
         });
     }

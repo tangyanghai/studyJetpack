@@ -6,14 +6,10 @@ import com.example.jetpackstudy.repository.net.ApiResponse;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 /**
  * <p>@author : tangyanghai</p>
@@ -21,7 +17,7 @@ import androidx.lifecycle.ViewModel;
  * <p>@for : </p>
  * <p></p>
  */
-public class RetrofitViewModel extends ViewModel {
+public class RetrofitViewModel extends BaseViewModel {
 
     RetrofitRepository repository;
     MutableLiveData<ApiResponse<List<WanAndroidBean>>> data;
@@ -36,12 +32,16 @@ public class RetrofitViewModel extends ViewModel {
     }
 
     public void loadData(LifecycleOwner owner) {
-        LiveData<ApiResponse<List<WanAndroidBean>>> apiResponseLiveData = repository.loadData();
-        apiResponseLiveData.observe(owner, new Observer<ApiResponse<List<WanAndroidBean>>>() {
+        setFirstLoading(false);
+        showLoading(true);
+        repository.loadData().observe(owner, new Observer<ApiResponse<List<WanAndroidBean>>>() {
             @Override
             public void onChanged(ApiResponse<List<WanAndroidBean>> listApiResponse) {
-                data.setValue(apiResponseLiveData.getValue());
+                data.setValue(listApiResponse);
+                showLoading(false);
             }
         });
     }
+
+
 }
