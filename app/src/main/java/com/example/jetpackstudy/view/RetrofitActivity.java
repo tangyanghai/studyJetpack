@@ -54,9 +54,6 @@ public class RetrofitActivity extends BaseActivity {
         model.getResponse().observe(RetrofitActivity.this, new Observer<ApiResponse<List<WanAndroidBean>>>() {
             @Override
             public void onChanged(ApiResponse<List<WanAndroidBean>> listApiResponse) {
-                if (listApiResponse == null) {
-                    return;
-                }
                 if (listApiResponse.data == null) {
                     Toast.makeText(RetrofitActivity.this, listApiResponse.errorMsg, Toast.LENGTH_LONG).show();
                     return;
